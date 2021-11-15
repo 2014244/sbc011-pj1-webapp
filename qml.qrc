@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>images/UnivespLogo.jpg</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>HoverButton.qml</file>
+        <file>StackViewPage.qml</file>
+        <file>FormOne.qml</file>
+        <file>FormTwo.qml</file>
+        <file>json.js</file>
+        <file>FormThree.qml</file>
+        <file>FormChart.qml</file>
+    </qresource>
+</RCC>
