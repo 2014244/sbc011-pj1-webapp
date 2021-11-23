@@ -366,7 +366,6 @@ Item {
         height: 150
         modal: true
         focus: true
-//        closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
 
         Column {
             id: columnDialog

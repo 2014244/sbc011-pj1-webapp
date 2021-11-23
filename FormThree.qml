@@ -7,7 +7,6 @@ import "json.js" as Json
 Item {
     id: content
 
-    //    property alias cancel: cancel
     property alias save: save
     property alias back: back
     property alias textArea: textArea
@@ -66,8 +65,7 @@ Item {
                         anchors.rightMargin: -600
                         anchors.bottomMargin: -362
                         selectByMouse: true
-                        //                        Layout.fillHeight: true
-                        //                        Layout.fillWidth: true
+
                         Component.onCompleted: {
                             if (!textArea.text) {
                                 var i = 0
@@ -94,12 +92,6 @@ Item {
                     enabled: true
                     onClicked: stackview.pop()
                 }
-
-                //                Button {
-                //                    id: cancel
-                //                    text: qsTr("Cancelar")
-                //                    enabled: true
-                //                }
 
                 Button {
                     id: save

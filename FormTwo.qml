@@ -116,9 +116,7 @@ Item {
                             anchors.centerIn: parent
                             MouseArea {
                                 anchors.fill: parent
-//                                onPressed: {
-//                                    mainLoader.source = "StackViewPage.qml"
-//                                }
+
                                 onClicked: {
                                     mainLoader.cadId = tabelaCad.getRow(row).id;
                                     mainLoader.cadObj.ID = tabelaCad.getRow(row).id;

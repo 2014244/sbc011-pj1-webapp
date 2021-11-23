@@ -75,6 +75,7 @@ Window {
         color: root.buttoncolor
         width: 100
         height: parent.height
+        z: 1
 
         Column {
             id: column
@@ -201,7 +202,6 @@ Window {
 
             TextField {
                 id: textField
-                //focus: true
                 placeholderText: qsTr("Digite aqui sua Mensagem. Tecle ENTER para enviar.")
                 width: parent.width
                 selectByMouse: true
