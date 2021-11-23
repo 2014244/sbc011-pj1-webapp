@@ -61,6 +61,9 @@ function websocket_ping(root) {
     if (secureWebSocketSubmit.status === WebSocket.Open) {
         secureWebSocketSubmit.sendTextMessage(comando)
     }
+    if (secureWebSocketReceive.status === WebSocket.Open) {
+        secureWebSocketReceive.sendTextMessage(comando)
+    }
 }
 
 function chat(root, message) {
