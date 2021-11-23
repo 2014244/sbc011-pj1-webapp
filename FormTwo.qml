@@ -1,38 +1,134 @@
-import QtQuick 2.15
-import QtQuick.Layouts 1.12
-import QtQuick.Dialogs 1.2
-import QtQuick.Controls 2.12
-import QtQuick.Controls 1.4 as OldControls
+import QtQuick 2.14
+import QtQuick.Controls 2.3
+import Qt.labs.qmlmodels 1.0
 
 Item {
-    id: content
+    id: tableConsulta
 
-    width: 680
-    height: 480
+    property var anObject: root.anObject
 
-    OldControls.TableView {
-        id: tableView
+    anchors.fill: parent
 
-        property int columnWidth: width / 3
-        Layout.minimumWidth: splitView.width / 3
+    Rectangle {
+        id: recContent
+        color: "darkgrey"
         anchors.fill: parent
 
-        OldControls.TableViewColumn {
-            role: "Identificador"
-            title: qsTr("Identificador")
-            width: tableView.columnWidth
+        Rectangle {
+            id: recHeader
+            anchors.top: parent.top
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: 27
+
+            TableView {
+                id:tableHeader
+                anchors.fill: parent
+                columnSpacing: 1
+                rowSpacing: 1
+                clip: true
+
+
+                model: TableModel {
+                    TableModelColumn { display: "id" }
+                    TableModelColumn { display: "nome" }
+                    TableModelColumn { display: "sobrenome" }
+
+                    rows: [
+                        {
+                            "id": "ID",
+                            "nome": "Nome",
+                            "sobrenome": "Sobrenome"
+                        }
+                    ]
+                }
+
+                delegate: Rectangle {
+                    id: cellHeader
+                    implicitWidth: parent.width / 3
+                    implicitHeight: 25
+                    border.width: 1
+                    color: "darkblue"
+
+                    Text {
+                        text: display
+                        color: "white"
+                        anchors.centerIn: parent
+                    }
+                }
+            }
         }
 
-        OldControls.TableViewColumn {
-            role: "Nome"
-            title: qsTr("Nome")
-            width: tableView.columnWidth
-        }
+        Column {
+            id: recTable
+            anchors.top: recHeader.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
 
-        OldControls.TableViewColumn {
-            role: "Sobrenome"
-            title: qsTr("Sobrenome")
-            width: tableView.columnWidth
+            ScrollView {
+                id: scrollTable
+                anchors.fill: parent
+                ScrollBar.vertical.interactive: true
+
+                TableView {
+                    id:table
+                    anchors.fill: parent
+                    columnSpacing: 1
+                    rowSpacing: 1
+                    clip: true
+
+                    model: TableModel {
+                        id: tabelaCad
+
+                        Component.onCompleted: {
+                            var index = anObject.count
+
+                            setRow(0, { id: anObject.resp[0].ID, nome: anObject.resp[0].nome, sobrenome: anObject.resp[0].sobrenome })
+                            for (var i = 1 ; i < index ; i++) {
+                                appendRow({ id: anObject.resp[i].ID, nome: anObject.resp[i].nome, sobrenome: anObject.resp[i].sobrenome })
+                            }
+                        }
+
+                        TableModelColumn { display: "id" }
+                        TableModelColumn { display: "nome" }
+                        TableModelColumn { display: "sobrenome" }
+
+                        rows: [
+                            {
+                                "id": "0",
+                                "sobrenome": "null",
+                                "nome": "null"
+                            }
+                        ]
+                    }
+
+                    delegate: Rectangle {
+                        id: cell
+                        implicitWidth: parent.width / 3
+                        implicitHeight: 25
+                        border.width: 1
+                        color: "lightblue"
+
+                        Text {
+                            text: display
+                            color: "black"
+                            anchors.centerIn: parent
+                            MouseArea {
+                                anchors.fill: parent
+//                                onPressed: {
+//                                    mainLoader.source = "StackViewPage.qml"
+//                                }
+                                onClicked: {
+                                    mainLoader.cadId = tabelaCad.getRow(row).id;
+                                    mainLoader.cadObj.ID = tabelaCad.getRow(row).id;
+                                    mainLoader.source = "StackViewPage.qml"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
